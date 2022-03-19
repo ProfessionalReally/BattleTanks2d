@@ -1,0 +1,40 @@
+#include "Bullet.h"
+
+Bullet::Bullet() //Конструктор
+{
+
+}
+Bullet::Bullet(string* tag, float sizeX, float sizeY) : Figure(tag, sizeX, sizeY) //Конструктор с параметрами(tag, sizeX, sizeY)
+{
+	FigureImage = Image::FromFile("D:\\проекты\\BattleTanks2d\\Resources\\bullet.png");
+}
+Bullet::Bullet(float x, float y, float sizeX, float sizeY) : Figure(x, y, sizeX, sizeY)//Конструктор с параметрами(x, y, sizeX, sizeY)
+{
+	FigureImage = Image::FromFile("D:\\проекты\\BattleTanks2d\\Resources\\bullet.png");
+}
+Bullet::Bullet(string* tag, float x, float y, float sizeX, float sizeY) : Figure(tag, x, y, sizeX, sizeY)//Конструктор с параметрами(tag, x, y, sizeX, sizeY)
+{
+	FigureImage = Image::FromFile("D:\\проекты\\BattleTanks2d\\Resources\\bullet.png");
+}
+Bullet::~Bullet() //Деструктор
+{
+	;
+}
+void Bullet::SetActive(bool active) //Установить Active
+{
+	Active = active;
+}
+bool Bullet::GetActive() //Получить Active
+{
+	return this->Active;
+}
+void Bullet::AddBulletToPlayerTank(Player tank, Bullet bullet) //Присоединить снаряд к танку игрока
+{
+	bullet.X = tank.X + 65;
+	bullet.Y = tank.Y + 21;
+}
+void Bullet::Move(int speedUp) 
+{
+	MoveSpeedUp = speedUp;
+	X += 8 + MoveSpeedUp;
+}

@@ -1,0 +1,20 @@
+#include "Block.h"
+
+Block::Block()//Конструктор
+{
+
+}
+Block::Block(float x, float y, float sizeX, float sizeY) : Figure(x, y, sizeX, sizeY) //Конструктор с параметрами(x, y, sizeX, sizeY)
+{
+    FigureImage = Image::FromFile("D:\\проекты\\BattleTanks2d\\Resources\\block.png");
+}
+
+Block::Block(string* tag, float x, float y, float sizeX, float sizeY) : Figure(tag, x, y, sizeX, sizeY) //Конструктор с параметрами(tag, x, y, sizeX, sizeY)
+{
+    FigureImage = Image::FromFile("D:\\проекты\\BattleTanks2d\\Resources\\block.png");
+}
+
+Block::~Block() //Деструктор
+{
+    ;
+}
