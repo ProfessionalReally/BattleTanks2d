@@ -21,11 +21,10 @@ public:
 
     void SetActive(bool active); //Установить Active
 
-    bool GetActive();
+    bool GetActive(); //Получить Active
     
-   /* virtual void AddBulletToPlayerTank(Player tank, Bullet bullet); *///Присоединить снаряд к танку игрока
+    virtual void AddBulletToTank(Figure tank, Bullet bullet); ///Присоединить снаряд к танку игрока
     
     void Move(int speedUp) override;
-    
 };
 

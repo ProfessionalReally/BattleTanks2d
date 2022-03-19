@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <random>
-#include "msclr\marshal_cppstd.h"
 using namespace System::Drawing;
 ref class Figure
 {
@@ -13,6 +12,7 @@ protected:
     int MoveSpeedUp;
     bool Tag;
     Image^ FigureImage;
+
 public:
     Figure(); //Конструктор
 

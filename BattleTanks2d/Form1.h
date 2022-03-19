@@ -2,6 +2,12 @@
 #include "Bullet.h"
 #include "Player.h"
 #include "Figure.h"
+#include "BulletE.h"
+#include "Enemy.h"
+#include "Wall.h"
+#include "Player.h"
+#include "Figure.h"
+#include "Block.h"
 
 namespace BattleTanks2d {
 
@@ -60,14 +66,14 @@ namespace BattleTanks2d {
 			// 
 			// Form1
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
-			this->ClientSize = System::Drawing::Size(955, 535);
-			this->Margin = System::Windows::Forms::Padding(4);
+			this->ClientSize = System::Drawing::Size(716, 435);
 			this->Name = L"Form1";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Form1";
+			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::Form1_KeyDown);
 			this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::Form1_KeyUp);
 			this->ResumeLayout(false);
@@ -75,6 +81,12 @@ namespace BattleTanks2d {
 		}
 #pragma endregion
 	// Данные игры
+	private: Player tank;
+	private: array<Block^>^ blocks = gcnew array<Block^>(6);
+	private: Bullet bullet;
+	private: array<BulletE^>^ bulletsE = gcnew array<BulletE^>(2);
+	private: array<Enemy^>^ enemies = gcnew array<Enemy^>(2);
+	private: array<Wall^>^ walls = gcnew array<Wall^>(2);
 	private: bool up, down, space;
 	private: bool fire = true;
 	private: int boost = 0;
@@ -82,17 +94,20 @@ namespace BattleTanks2d {
 
 	//Функции игры
 	public: void Init();
-	private: void MoveBlocks();
+	private: void MoveBlocks(array<Block^>^ blocks(), int speed);
 	private: void MoveEnemies();
 	private: void MoveObject();
 	private: void AddBulletToEnemies();
 	private: void MoveEnemiesBullets();
 	private: bool BulletCollide();
+	protected: virtual void OnPaint(PaintEventArgs^ e) override;
 
 	// Отслеживание нажатия клавиш
 	private: System::Void Form1_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e);
 	private: System::Void Form1_KeyUp(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e);
 
 	private: void Update(Object^ object, EventArgs^ e);
+	private: System::Void Form1_Load(System::Object^ sender, System::EventArgs^ e) {
+	}
 	};
 }

@@ -21,7 +21,7 @@ Bullet::Bullet(bool tag, float x, float y, float sizeX, float sizeY) : Figure(ta
 }
 Bullet::~Bullet() //Деструктор
 {
-	
+	;
 }
 void Bullet::SetActive(bool active) //Установить Active
 {
@@ -31,11 +31,14 @@ bool Bullet::GetActive() //Получить Active
 {
 	return this->Active;
 }
-//void Bullet::AddBulletToPlayerTank(Player tank, Bullet bullet) //Присоединить снаряд к танку игрока
-//{
-//	bullet.X = tank.X + 65;
-//	bullet.Y = tank.Y + 21;
-//}
+void Bullet::AddBulletToTank(Figure tank, Bullet bullet) //Присоединить снаряд к танку игрока
+{
+	float x, y;
+	x = tank.GetX();
+	y = tank.GetY();
+	bullet.SetX(x + 65);
+	bullet.SetY(y + 21);
+}
 void Bullet::Move(int speedUp) 
 {
 	MoveSpeedUp = speedUp;
