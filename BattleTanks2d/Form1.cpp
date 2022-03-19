@@ -25,6 +25,7 @@ void BattleTanks2d::Form1::Init()
 	blocks[3] = gcnew Block(480, 350, 65, 55);
 	blocks[4] = gcnew Block(true, 280, 185, 70, 65);
 	blocks[5] = gcnew Block(true, 720, 185, 70, 65);
+
 }
 
 void BattleTanks2d::Form1::MoveBlocks()
