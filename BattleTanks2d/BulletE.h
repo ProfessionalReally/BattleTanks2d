@@ -17,7 +17,7 @@ public:
 
     //~BulletE(); //Деструктор
 
-    void AddBulletToTank(Figure^ tank, Bullet^ bullet); ///Присоединить снаряд к танку игрока
+    void AddBulletToTank(Enemy^% tank, BulletE^% bullet); ///Присоединить снаряд к танку игрока
 
     void Move(int speedUp) override;
 };

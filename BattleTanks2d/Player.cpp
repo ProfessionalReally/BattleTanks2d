@@ -30,10 +30,10 @@ void Player::MoveUpDown(bool up, bool down, int speed)
         Y += 4 + speed;
     }
 }
-bool Player::Pop(System::Object^ sender, System::EventArgs^ e, Timer timer1)
+bool Player::Pop(Timer^% timer1)
 {
     Alive = false;
-    timer1.Stop();
+    timer1->Stop();
 
     Form^ form1 = gcnew Form;
     form1 = Application::OpenForms["Form1"];

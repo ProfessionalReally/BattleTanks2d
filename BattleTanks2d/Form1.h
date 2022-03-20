@@ -67,10 +67,12 @@ namespace BattleTanks2d {
 			// 
 			// Form1
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
-			this->ClientSize = System::Drawing::Size(716, 435);
+			this->ClientSize = System::Drawing::Size(955, 535);
+			this->DoubleBuffered = true;
+			this->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->Name = L"Form1";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Form1";
@@ -100,7 +102,7 @@ namespace BattleTanks2d {
 	//private: void MoveObject();
 	private: void AddBulletToEnemies(array<Enemy^>^% enemies);
 	private: void MoveEnemiesBullets(array<BulletE^>^% bulletsE, int speed);
-	private: bool BulletCollide(array<Figure^>^% figures);
+	private: bool BulletCollide(array<Enemy^>^% enemies);
 	private: void MoveObject(Figure^ enemies);
 	protected: virtual void OnPaint(PaintEventArgs^ e) override;
 

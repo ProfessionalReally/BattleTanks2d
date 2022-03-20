@@ -25,7 +25,7 @@ public:
     
     void MoveUpDown(bool up, bool down, int speed);
     
-    bool Pop(System::Object^ sender, System::EventArgs^ e, Timer timer1);
+    bool Pop(Timer^% timer1);
 
     bool GetAlive(); //Получить Alive
 

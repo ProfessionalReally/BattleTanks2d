@@ -106,9 +106,9 @@ void Figure::SpawnYRandom()
     Random^ rnd = gcnew Random();
     Y = rnd->Next(100, 295);
 }
-bool Figure::Collide(Figure let)
+bool Figure::Collide(Figure^ let)
 {
-    if (X < let.X + let.SizeX && X + SizeX > let.X && Y < let.Y + let.SizeY && SizeY + Y > let.Y)
+    if (X < let->X + let->SizeX && X + SizeX > let->X && Y < let->Y + let->SizeY && SizeY + Y > let->Y)
     {
         return true;
     }

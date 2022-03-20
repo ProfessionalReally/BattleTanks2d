@@ -23,17 +23,17 @@ BulletE::BulletE(bool tag, float x, float y, float sizeX, float sizeY) : Figure(
 //	;
 //}
 
-void BulletE::AddBulletToTank(Figure^ tank, Bullet^ bullet) //Присоединить снаряд к танку игрока
+void BulletE::AddBulletToTank(Enemy^% tank, BulletE^% bullet) //Присоединить снаряд к танку игрока
 {
 	float x, y;
 	x = tank->GetX();
 	y = tank->GetY();
-	bullet->SetX(x + 65);
-	bullet->SetY(y + 21);
+	bullet->SetX(x - 15);
+	bullet->SetY(y + 16);
 }
 
 void BulletE::Move(int speedUp)
 {
 	MoveSpeedUp = speedUp;
-	X += 8 + MoveSpeedUp;
+	X -= 6 + MoveSpeedUp;
 }

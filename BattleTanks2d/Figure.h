@@ -59,6 +59,6 @@ public:
 
     virtual void SpawnYRandom();
 
-    bool Collide(Figure let);
+    bool Collide(Figure^ let);
 };
 
