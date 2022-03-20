@@ -83,7 +83,7 @@ namespace BattleTanks2d {
 #pragma endregion
 	// Данные игры
 	private: Player^ tank;
-	private: BulletE^ bulletsE;
+	private: array<BulletE^>^ bulletsE = gcnew array<BulletE^>(2);
 	private: array<Block^>^ blocks = gcnew array<Block^>(6);
 	private: Bullet^ bullet;
 	private: array<Enemy^>^ enemies = gcnew array<Enemy^>(2);
@@ -96,11 +96,12 @@ namespace BattleTanks2d {
 	//Функции игры
 	public: void Init();
 	private: void MoveBlocks(array<Block^>^% blocks, int speed);
-	private: void MoveEnemies();
-	private: void MoveObject();
+	private: void MoveEnemies(array<Enemy^>^% enemies, int speed);
+	//private: void MoveObject();
 	private: void AddBulletToEnemies(array<Enemy^>^% enemies);
-	private: void MoveEnemiesBullets();
-	private: bool BulletCollide();
+	private: void MoveEnemiesBullets(array<BulletE^>^% bulletsE, int speed);
+	private: bool BulletCollide(array<Figure^>^% figures);
+	private: void MoveObject(Figure^ enemies);
 	protected: virtual void OnPaint(PaintEventArgs^ e) override;
 
 	// Отслеживание нажатия клавиш

@@ -50,3 +50,22 @@ bool Player::Pop(System::Object^ sender, System::EventArgs^ e, Timer timer1)
     else
         return true;
 }
+
+void Player::SetAlive(bool alive) //Придать значение Alive
+{
+    Alive = alive;
+}
+
+void Player::SetScore(int score) //Придать значение Score
+{
+    Score = score;
+}
+
+bool Player::GetAlive() //Получить Alive
+{
+    return this->Alive;
+}
+int Player::GetScore() //Получить Score
+{
+    return this->Score;
+}

@@ -36,17 +36,16 @@ void BattleTanks2d::Form1::Init()
 
 	bullet = gcnew Bullet(true, 22, 18);
 
-	/*array<BulletE^>^ bulletsE = gcnew array<BulletE^>(2);*/
+	
 
-	/*bulletsE[0] = gcnew BulletE(true, 16, 11);
-	bulletsE[1] = gcnew BulletE(true, 16, 11);*/
+	bulletsE[0] = gcnew BulletE(true, 16, 11);
+	bulletsE[1] = gcnew BulletE(true, 16, 11);
 
-	//array<Enemy^>^ enemies = gcnew array<Enemy^>(2);
+	
 	
 	enemies[0] = gcnew Enemy(450, 45, 50, 45);
 	enemies[1] = gcnew Enemy(500, 350, 50, 45);
 
-	//array<Wall^>^ walls = gcnew array<Wall^>(2);
 	
 	walls[0] = gcnew Wall(0, 1, 715, 19);
 	walls[1] = gcnew Wall(0, 416, 715, 19);
@@ -61,12 +60,10 @@ void BattleTanks2d::Form1::MoveBlocks(array<Block^>^% blocks, int speed)
 	/*array<Block^>^ blocks = gcnew array<Block^>(6);*/
 	for (int i = 0; i < blocks->Length; i++)
 	{
-		float X = blocks[i]->GetX();
-		bool Tag = blocks[i]->GetTag();
 		blocks[i]->Move(speed);
-		if (X < -65)
+		if (enemies[i]->GetX() < -65)
 		{
-			if (Tag)
+			if (blocks[i]->GetTag())
 			{
 				blocks[i]->SpawnX();
 				blocks[i]->SpawnYRandom();
@@ -80,52 +77,164 @@ void BattleTanks2d::Form1::MoveBlocks(array<Block^>^% blocks, int speed)
 	throw gcnew System::NotImplementedException();
 }
 
-void BattleTanks2d::Form1::MoveEnemies()
+void BattleTanks2d::Form1::MoveEnemies(array<Enemy^>^% enemies, int speed)
 {
+	for (int i = 0; i < enemies->Length; i++)
+	{
+		enemies[i]->Move(speed);
+		if (enemies[i]->GetX() < -65)
+		{
+			MoveObject(enemies[i]);
+		}
+	}
 	throw gcnew System::NotImplementedException();
 }
 
-void BattleTanks2d::Form1::MoveObject()
+void BattleTanks2d::Form1::MoveObject(Figure^ enemies)
+{
+	enemies->SpawnX();
+	enemies->SpawnYRandom();
+	throw gcnew System::NotImplementedException();
+}
+/*void BattleTanks2d::Form1::MoveObject()
 {
 	throw gcnew System::NotImplementedException();
 }
-
+*/
 void BattleTanks2d::Form1::AddBulletToEnemies(array<Enemy^>^% enemies)
 {
-	/*for (int i = 0; i < enemies->Length; i++)
+	for (int i = 0; i < enemies->Length; i++)
 	{
-		if (bullets[i].Tag == "bulletE")
+		if (bulletsE[i]->GetTag())
 		{
-			if (bulletsE[i].X < -18)
+			if (bulletsE[i]->GetX() < -18)
 			{
-				bulletsE[i].AddBulletToTank(enemies[i], bulletsE[i]);
+				bulletsE[i]->AddBulletToTank(enemies[i], bulletsE[i]);
 			}
 		}
-	}*/
-}
-
-void BattleTanks2d::Form1::MoveEnemiesBullets()
-{
+	}
 	throw gcnew System::NotImplementedException();
 }
 
-bool BattleTanks2d::Form1::BulletCollide()
+void BattleTanks2d::Form1::MoveEnemiesBullets(array<BulletE^>^% bulletsE, int speed)
 {
+	for (int i = 0; i < bulletsE->Length; i++)
+	{
+		bool Tag = bulletsE[i]->GetTag();
+		if (Tag)
+		{
+			bulletsE[i]->Move(speed);
+		}
+	}
+	throw gcnew System::NotImplementedException();
+}
+
+bool BattleTanks2d::Form1::BulletCollide(array<Figure^>^% figures)
+{
+	for (int i = 0; i < figures->Length; i++)
+	{
+		if (bullet->Collide(figures[i]))
+		{
+			MoveObject(figures[i]);
+			return true;
+		}
+	}
 	return false;
 }
 
 System::Void BattleTanks2d::Form1::Form1_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e)
 {
+	switch (e->KeyCode)
+	{
+	case Keys::Up:
+		up = false;
+		break;
+	case Keys::Down:
+		down = false;
+		break;
+	case Keys::Space:
+		space = false;
+		break;
+	}
 	return System::Void();
 }
 
 System::Void BattleTanks2d::Form1::Form1_KeyUp(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e)
 {
+	switch (e->KeyCode)
+	{
+	case Keys::Up:
+		up = true;
+		break;
+	case Keys::Down:
+		down = true;
+		break;
+	case Keys::Space:
+		space = true;
+		break;
+	}
 	return System::Void();
 }
 
 void BattleTanks2d::Form1::Update(Object^ object, EventArgs^ e)
 {
+	if (tank->Collide(blocks[0]) || tank.Collide(blocks[1]) || tank.Collide(blocks[2]) || tank.Collide(blocks[3]) || tank.Collide(blocks[4]) || tank.Collide(blocks[5])
+		|| tank.Collide(bulletsE[0]) || tank.Collide(bulletsE[1]) || tank.Collide(enemies[0]) || tank.Collide(enemies[1]) || tank.Collide(walls[0]) || tank.Collide(walls[1]))
+	{
+		if (tank->Pop(timer1))
+		{
+			Sleep(1000);
+			fire = true;
+			boost = 0;
+			boostPlayer = 0;
+			up = false;
+			down = false;
+			Init();
+		}
+	}
+	if (space && fire == true)
+	{
+		bullet->AddBulletToTank(tank, bullet);
+		bullet->SetActive(true);
+		fire = false;
+	}
+	if (fire == false && bullet->GetActive() == true)
+	{
+		if (bullet->GetX() > 350)
+		{
+			bullet->SetActive(false);
+			fire = true;
+			bullet->SetX(0);
+			bullet->SetY(0);
+		}
+		bullet->Move(0);
+	}
+	tank->MoveUpDown(up, down, boostPlayer);
+	AddBulletToEnemies(enemies);
+	if (BulletCollide(enemies))
+	{
+		int Score = tank->GetScore();
+		tank->SetScore(Score + 1);
+		this->Text = "Battle Tanks Score: " + tank->GetScore();
+		if (Score == 5)
+		{
+			boost++;
+			boostPlayer++;
+		}
+		if (Score == 10)
+		{
+			boost++;
+		}
+		if (Score == 15)
+		{
+			boost++;
+			boostPlayer++;
+		}
+	}
+	MoveBlocks(blocks, boost);
+	MoveEnemies(enemies, boost);
+	MoveEnemiesBullets(bulletsE, boost);
+	Invalidate();
 	throw gcnew System::NotImplementedException();
 }
 

@@ -1,9 +1,9 @@
 #pragma once
 #include "Bullet.h"
 #include "Figure.h"
-#include "Form1.h"
 #include "Enemy.h"
 using namespace System::Drawing;
+
 ref class BulletE : public Figure
 {
 public:

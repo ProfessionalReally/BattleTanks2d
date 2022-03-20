@@ -26,6 +26,14 @@ public:
     void MoveUpDown(bool up, bool down, int speed);
     
     bool Pop(System::Object^ sender, System::EventArgs^ e, Timer timer1);
+
+    bool GetAlive(); //Получить Alive
+
+    int GetScore(); //Получить Score
+
+    void SetAlive(bool alive); //Придать значение Alive
+
+    void SetScore(int score); //Придать значение Score
     
 };
 

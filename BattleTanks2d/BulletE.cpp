@@ -1,5 +1,7 @@
 #include "BulletE.h"
-
+#include "Form1.h"
+#include "Player.h"
+#include "Figure.h"
 BulletE::BulletE() //Конструктор
 {
 
@@ -20,6 +22,7 @@ BulletE::BulletE(bool tag, float x, float y, float sizeX, float sizeY) : Figure(
 //{
 //	;
 //}
+
 void BulletE::AddBulletToTank(Figure^ tank, Bullet^ bullet) //Присоединить снаряд к танку игрока
 {
 	float x, y;
@@ -28,6 +31,7 @@ void BulletE::AddBulletToTank(Figure^ tank, Bullet^ bullet) //Присоединить снаря
 	bullet->SetX(x + 65);
 	bullet->SetY(y + 21);
 }
+
 void BulletE::Move(int speedUp)
 {
 	MoveSpeedUp = speedUp;
