@@ -4,7 +4,7 @@
 #include "Form1.h"
 #include "Enemy.h"
 using namespace System::Drawing;
-ref class BulletE : public Bullet
+ref class BulletE : public Figure
 {
 public:
     BulletE(); //Конструктор
@@ -15,9 +15,9 @@ public:
 
     BulletE(bool tag, float x, float y, float sizeX, float sizeY); //Конструктор с параметрами(tag, x, y, sizeX, sizeY)
 
-    ~BulletE(); //Деструктор
+    //~BulletE(); //Деструктор
 
-    void AddBulletToTank(Enemy tank, Bullet bullet) override; ///Присоединить снаряд к танку игрока
+    void AddBulletToTank(Figure^ tank, Bullet^ bullet); ///Присоединить снаряд к танку игрока
 
     void Move(int speedUp) override;
 };

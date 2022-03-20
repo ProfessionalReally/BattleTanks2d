@@ -5,7 +5,6 @@
 #include "Figure.h"
 #include <Windows.h>
 
-using namespace System::Drawing;
 using namespace System;
 using namespace System::ComponentModel;
 using namespace System::Collections;

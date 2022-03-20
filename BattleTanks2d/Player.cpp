@@ -15,7 +15,7 @@ Player::Player()
 }
 Player::Player(float x, float y, float sizeX, float sizeY) : Figure(x, y, sizeX, sizeY)
 {
-    FigureImage = Image::FromFile("D:\\проекты\\BattleTanks2d\\Resources\\Tank1.png");
+    FigureImage = Image::FromFile("C:\\Tank1.png");
     Alive = true;
     Score = 0;
 }

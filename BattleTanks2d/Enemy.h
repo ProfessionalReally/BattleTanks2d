@@ -11,7 +11,7 @@ public:
     
     Enemy(bool tag, float x, float y, float sizeX, float sizeY); //Конструктор с параметрами(tag, x, y, sizeX, sizeY)
 
-    ~Enemy(); //Деструктор
+    //~Enemy(); //Деструктор
     
     void SpawnYRandom() override;
     

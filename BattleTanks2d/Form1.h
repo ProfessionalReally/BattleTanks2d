@@ -1,13 +1,14 @@
 #pragma once
 #include "Bullet.h"
+#include "BulletE.h"
 #include "Player.h"
 #include "Figure.h"
-#include "BulletE.h"
 #include "Enemy.h"
 #include "Wall.h"
 #include "Player.h"
 #include "Figure.h"
 #include "Block.h"
+#include <array>
 
 namespace BattleTanks2d {
 
@@ -81,10 +82,10 @@ namespace BattleTanks2d {
 		}
 #pragma endregion
 	// Данные игры
-	private: Player tank;
+	private: Player^ tank;
+	private: BulletE^ bulletsE;
 	private: array<Block^>^ blocks = gcnew array<Block^>(6);
-	private: Bullet bullet;
-	private: array<BulletE^>^ bulletsE = gcnew array<BulletE^>(2);
+	private: Bullet^ bullet;
 	private: array<Enemy^>^ enemies = gcnew array<Enemy^>(2);
 	private: array<Wall^>^ walls = gcnew array<Wall^>(2);
 	private: bool up, down, space;
@@ -94,10 +95,10 @@ namespace BattleTanks2d {
 
 	//Функции игры
 	public: void Init();
-	private: void MoveBlocks(array<Block^>^ blocks(), int speed);
+	private: void MoveBlocks(array<Block^>^% blocks, int speed);
 	private: void MoveEnemies();
 	private: void MoveObject();
-	private: void AddBulletToEnemies();
+	private: void AddBulletToEnemies(array<Enemy^>^% enemies);
 	private: void MoveEnemiesBullets();
 	private: bool BulletCollide();
 	protected: virtual void OnPaint(PaintEventArgs^ e) override;

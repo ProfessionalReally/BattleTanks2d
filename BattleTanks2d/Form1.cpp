@@ -18,7 +18,6 @@ using namespace System::Drawing;
 
 
 
-
 BattleTanks2d::Form1::Form1(void)
 {
 	InitializeComponent();
@@ -27,9 +26,7 @@ BattleTanks2d::Form1::Form1(void)
 }
 void BattleTanks2d::Form1::Init()
 {
-	Player^ tank = gcnew Player(12, 223, 70, 60);
-	/*auto arr = gcnew cli::array<Block^>(42);*/
-	//array<Block^>^ blocks = gcnew array<Block^>(6);
+	tank = gcnew Player(12, 223, 70, 60);
 	blocks[0] = gcnew Block(70, 45, 65, 55);
 	blocks[1] = gcnew Block(70, 350, 65, 55);
 	blocks[2] = gcnew Block(480, 45, 65, 55);
@@ -37,12 +34,12 @@ void BattleTanks2d::Form1::Init()
 	blocks[4] = gcnew Block(true, 280, 185, 70, 65);
 	blocks[5] = gcnew Block(true, 720, 185, 70, 65);
 
-	Bullet^ bullet = gcnew Bullet("bulletP", 22, 18);
+	bullet = gcnew Bullet(true, 22, 18);
 
-	//array<BulletE^>^ bulletsE = gcnew array<BulletE^>(2);
+	/*array<BulletE^>^ bulletsE = gcnew array<BulletE^>(2);*/
 
-	bulletsE[0] = gcnew BulletE("bulletE", 16, 11);
-	bulletsE[1] = gcnew BulletE("bulletE", 16, 11);
+	/*bulletsE[0] = gcnew BulletE(true, 16, 11);
+	bulletsE[1] = gcnew BulletE(true, 16, 11);*/
 
 	//array<Enemy^>^ enemies = gcnew array<Enemy^>(2);
 	
@@ -59,22 +56,24 @@ void BattleTanks2d::Form1::Init()
 	timer1->Start();
 }
 
-void BattleTanks2d::Form1::MoveBlocks(array<Block^>^ blocks(), int speed)
+void BattleTanks2d::Form1::MoveBlocks(array<Block^>^% blocks, int speed)
 {
-	array<Block^>^ blocks = gcnew array<Block^>(6);
+	/*array<Block^>^ blocks = gcnew array<Block^>(6);*/
 	for (int i = 0; i < blocks->Length; i++)
 	{
-		blocks(i)->Move(speed);
-		if (blocks[i].X < -65)
+		float X = blocks[i]->GetX();
+		bool Tag = blocks[i]->GetTag();
+		blocks[i]->Move(speed);
+		if (X < -65)
 		{
-			if (blocks[i].Tag == "blockM")
+			if (Tag)
 			{
-				blocks[i].SpawnX();
-				blocks[i].SpawnYRandom();
+				blocks[i]->SpawnX();
+				blocks[i]->SpawnYRandom();
 			}
 			else
 			{
-				blocks[i].SpawnX();
+				blocks[i]->SpawnX();
 			}
 		}
 	}
@@ -91,9 +90,18 @@ void BattleTanks2d::Form1::MoveObject()
 	throw gcnew System::NotImplementedException();
 }
 
-void BattleTanks2d::Form1::AddBulletToEnemies()
+void BattleTanks2d::Form1::AddBulletToEnemies(array<Enemy^>^% enemies)
 {
-	throw gcnew System::NotImplementedException();
+	/*for (int i = 0; i < enemies->Length; i++)
+	{
+		if (bullets[i].Tag == "bulletE")
+		{
+			if (bulletsE[i].X < -18)
+			{
+				bulletsE[i].AddBulletToTank(enemies[i], bulletsE[i]);
+			}
+		}
+	}*/
 }
 
 void BattleTanks2d::Form1::MoveEnemiesBullets()
@@ -124,21 +132,58 @@ void BattleTanks2d::Form1::Update(Object^ object, EventArgs^ e)
 void BattleTanks2d::Form1::OnPaint(PaintEventArgs^ e)
 {
 	Graphics^ graphics = e->Graphics;
+	Image^ images;
+	float x, y, sizeX, sizeY;
+	images = tank->GetFigureImage();
+	x = tank->GetX();
+	y = tank->GetY();
+	sizeX = tank->GetSizeX();
+	sizeY = tank->GetSizeY();
+	graphics->DrawImage(images, x, y, sizeX, sizeY);
 
-	graphics->DrawImage(tank.GetFigureImage(), tank.GetX(), tank.GetY(), tank.GetSizeX(), tank.GetSizeY());
 	for (int i = 0; i < 6; i++)
 	{
-		graphics->DrawImage(blocks[i]->GetFigureImage(), blocks[i]->GetX(), blocks[i]->GetY(), blocks[i]->GetSizeX(), blocks[i]->GetSizeY());
+		images = blocks[i]->GetFigureImage();
+		x = blocks[i]->GetX();
+		y = blocks[i]->GetY();
+		sizeX = blocks[i]->GetSizeX();
+		sizeY = blocks[i]->GetSizeY();
+		graphics->DrawImage(images, x, y, sizeX, sizeY);
 	}
-	graphics->DrawImage(bullet.GetFigureImage(), bullet.GetX(), bullet.GetY(), bullet.GetSizeX(), bullet.GetSizeY());
+	images = bullet->GetFigureImage();
+	x = bullet->GetX();
+	y = bullet->GetY();
+	sizeX = bullet->GetSizeX();
+	sizeY = bullet->GetSizeY();
+	graphics->DrawImage(images, x, y, sizeX, sizeY);
 
-	graphics->DrawImage(enemies[0]->GetFigureImage(), enemies[0]->GetX(), enemies[0]->GetY(), enemies[0]->GetSizeX(), enemies[0]->GetSizeY());
-	graphics->DrawImage(enemies[1]->GetFigureImage(), enemies[1]->GetX(), enemies[1]->GetY(), enemies[1]->GetSizeX(), enemies[1]->GetSizeY());
+	images = enemies[0]->GetFigureImage();
+	x = enemies[0]->GetX();
+	y = enemies[0]->GetY();
+	sizeX = enemies[0]->GetSizeX();
+	sizeY = enemies[0]->GetSizeY();
+	graphics->DrawImage(images, x, y, sizeX, sizeY);
 
-	graphics->DrawImage(bulletsE[0]->GetFigureImage(), bulletsE[0]->GetX(), bulletsE[0]->GetY(), bulletsE[0]->GetSizeX(), bulletsE[0]->GetSizeY());
-	graphics->DrawImage(bulletsE[1]->GetFigureImage(), bulletsE[1]->GetX(), bulletsE[1]->GetY(), bulletsE[1]->GetSizeX(), bulletsE[1]->GetSizeY());
+	images = enemies[1]->GetFigureImage();
+	x = enemies[1]->GetX();
+	y = enemies[1]->GetY();
+	sizeX = enemies[1]->GetSizeX();
+	sizeY = enemies[1]->GetSizeY();
+	graphics->DrawImage(images, x, y, sizeX, sizeY);
+	//graphics->DrawImage(bulletsE[0]->GetFigureImage(), bulletsE[0]->GetX(), bulletsE[0]->GetY(), bulletsE[0]->GetSizeX(), bulletsE[0]->GetSizeY());
+	//graphics->DrawImage(bulletsE[1]->GetFigureImage(), bulletsE[1]->GetX(), bulletsE[1]->GetY(), bulletsE[1]->GetSizeX(), bulletsE[1]->GetSizeY());
+	images = walls[0]->GetFigureImage();
+	x = walls[0]->GetX();
+	y = walls[0]->GetY();
+	sizeX = walls[0]->GetSizeX();
+	sizeY = walls[0] ->GetSizeY();
+	graphics->DrawImage(images, x, y, sizeX, sizeY);
 
-	graphics->DrawImage(walls[0]->GetFigureImage(), walls[0]->GetX(), walls[0]->GetY(), walls[0]->GetSizeX(), walls[0]->GetSizeY());
-	graphics->DrawImage(walls[1]->GetFigureImage(), walls[1]->GetX(), walls[1]->GetY(), walls[1]->GetSizeX(), walls[1]->GetSizeY());
+	images = walls[1]->GetFigureImage();
+	x = walls[1]->GetX();
+	y = walls[1]->GetY();
+	sizeX = walls[1]->GetSizeX();
+	sizeY = walls[1]->GetSizeY();
+	graphics->DrawImage(images, x, y, sizeX, sizeY);
 }
 
